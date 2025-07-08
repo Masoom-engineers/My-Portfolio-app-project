@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, useColorScheme, Linking, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, useColorScheme, Linking, TouchableOpacity, SafeAreaView, StatusBar, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ContactScreen() {
@@ -14,24 +14,30 @@ export default function ContactScreen() {
     {
       icon: 'mail-outline',
       label: 'Email',
-      value: 'niraj@example.com',
-      onPress: () => Linking.openURL('mailto:niraj@example.com'),
+      value: 'nirajy940@gmail.com',
+      onPress: () => Linking.openURL('mailto:nirajy940@gmail.com'),
     },
     {
       icon: 'logo-github',
       label: 'GitHub',
       value: '@nirajyadav',
-      onPress: () => Linking.openURL('https://github.com/nirajyadav'),
+      onPress: () => Linking.openURL('https://github.com/Masoom-engineers'),
     },
     {
       icon: 'logo-linkedin',
       label: 'LinkedIn',
-      value: 'linkedin.com/in/nirajyadav',
-      onPress: () => Linking.openURL('https://www.linkedin.com/in/nirajyadav'),
+      value: 'linkedin.com/in/niraj-yadav-5444641a2/',
+      onPress: () => Linking.openURL('https://www.linkedin.com/in/niraj-yadav-5444641a2/'),
     },
   ];
 
   return (
+      <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        backgroundColor: '#fff',
+      }}>
     <View style={[styles.container, { backgroundColor: bgColor }]}>
       <Text style={[styles.heading, { color: textColor }]}>📞 Get in Touch</Text>
 
@@ -45,6 +51,7 @@ export default function ContactScreen() {
         </TouchableOpacity>
       ))}
     </View>
+    </SafeAreaView>
   );
 }
 

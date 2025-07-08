@@ -1,9 +1,15 @@
-import { ScrollView, View, Text, StyleSheet, useColorScheme } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, useColorScheme, Platform, StatusBar, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ProjectsScreen() {
   const theme = useColorScheme();
   const isDark = theme === 'dark';
+
+  const bgColor = isDark ? '#111' : '#f9f9f9';
+  const cardBg = isDark ? '#1f1f1f' : '#fff';
+  const textColor = isDark ? '#ddd' : '#222';
+  const headingColor = isDark ? '#fff' : '#000';
+  const iconColor = isDark ? '#4ade80' : '#2f855a';
 
   const projects = [
     'Portfolio App (this one!)',
@@ -17,22 +23,25 @@ export default function ProjectsScreen() {
   ];
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDark ? '#111' : '#f9f9f9' }]}>
-      <Text style={[styles.heading, { color: isDark ? '#fff' : '#000' }]}>
-        🚀 My Projects
-      </Text>
+      <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        backgroundColor: '#fff',
+      }}>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor: bgColor }]}>
+      <Text style={[styles.heading, { color: headingColor }]}>🚀 My Projects</Text>
 
-      <View style={styles.list}>
+      <View style={styles.cardContainer}>
         {projects.map((project, index) => (
-          <View key={index} style={styles.projectItem}>
-            <Ionicons name="rocket-outline" size={20} color={isDark ? '#4ade80' : '#2f855a'} />
-            <Text style={[styles.projectText, { color: isDark ? '#ddd' : '#333' }]}>
-              {project}
-            </Text>
+          <View key={index} style={[styles.card, { backgroundColor: cardBg }]}>
+            <Ionicons name="rocket-outline" size={20} color={iconColor} />
+            <Text style={[styles.cardText, { color: textColor }]}>{project}</Text>
           </View>
         ))}
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -45,20 +54,31 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 24,
     textAlign: 'center',
   },
-  list: {
-    gap: 16, // Requires React Native 0.71+ or use marginBottom instead
+  cardContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 12, // React Native >= 0.71+, use margin if needed
   },
-  projectItem: {
+  card: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10, // Optional: or use marginRight
-    marginBottom: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    margin: 6,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
   },
-  projectText: {
-    fontSize: 18,
+  cardText: {
+    fontSize: 16,
+    marginLeft: 8,
     flexShrink: 1,
   },
 });

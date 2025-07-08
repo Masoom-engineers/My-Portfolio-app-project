@@ -13,6 +13,7 @@ export function IconSymbol({
   color: string;
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
+   icon: '#222',
 }) {
   return (
     <SymbolView
